@@ -1,6 +1,6 @@
 # WiCal 지원 사이트
 
-WiCal의 한국어·영어 지원 페이지와 개인정보처리방침을 만드는 정적 사이트다. 앱 소스와 분리된 문서 전용 저장소로 공개할 예정이다. Python 3 표준 라이브러리만 사용하며 외부 스크립트, 폰트, 방문 분석 및 문의 폼은 포함하지 않는다.
+WiCal의 한국어·영어 지원 페이지와 개인정보처리방침을 만드는 정적 사이트다. 앱 소스와 분리된 문서 전용 공개 저장소에서 관리한다. Python 3 표준 라이브러리만 사용하며 외부 스크립트, 폰트, 방문 분석 및 문의 폼은 포함하지 않는다.
 
 운영자, 문의 이메일 및 문의 메일 보관 기준은 2026-09-09 확인됐다. 문의 이메일과 첨부자료는 문의 처리와 후속 대응이 끝나면 삭제될 예정이다.
 
@@ -41,6 +41,6 @@ python3 build.py --output docs
 - 한국어 개인정보처리방침: `https://seokba.github.io/wical-site/ko/privacy/`
 - 영어 개인정보처리방침: `https://seokba.github.io/wical-site/en/privacy/`
 
-실제 HTTPS 응답과 본문을 확인한 후 App Store Connect의 각 언어 URL을 등록한다. 앱 설정에 링크를 추가하면 현재 업로드된 빌드 4와 별개의 빌드 번호로 검증·업로드해야 한다.
+실제 HTTPS 응답과 본문을 확인한 후 App Store Connect의 각 언어 URL을 등록한다. 앱 설정에 포함된 링크를 변경하면 빌드 번호를 증가시켜 검증·업로드한다.
 
 게시 절차 참고: [GitHub Pages 사이트 만들기](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site), [GitHub Pages HTTPS](https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https).
