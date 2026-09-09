@@ -1,0 +1,10 @@
+{
+  "base_url": "https://seokba.github.io/wical-site",
+  "operator": "SeokHo Kim",
+  "email": "seokho0330@gmail.com",
+  "effective_date": "2026-09-09",
+  "support_retention": {
+    "ko": "문의 이메일과 첨부자료는 문의 처리와 후속 대응이 끝나면 삭제될 예정입니다.",
+    "en": "Inquiry emails and attachments will be deleted once the inquiry and any follow-up have been completed."
+  }
+}
