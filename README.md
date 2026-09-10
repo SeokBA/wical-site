@@ -44,3 +44,31 @@ python3 build.py --output docs
 실제 HTTPS 응답과 본문을 확인한 후 App Store Connect의 각 언어 URL을 등록한다. 앱 설정에 포함된 링크를 변경하면 빌드 번호를 증가시켜 검증·업로드한다.
 
 게시 절차 참고: [GitHub Pages 사이트 만들기](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site), [GitHub Pages HTTPS](https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https).
+
+## 대표 사이트 통합 (2026-09-10)
+
+기존 `wical-publisher-site`의 Git 이력과 배포 설정을 이 저장소에 통합했다. 지원·개인정보 문구, 대표 사이트와 app-ads.txt를 이제 이 프로젝트에서 함께 관리한다.
+
+```text
+site.json / content.json   공통 운영 정보·한영 지원/정책 문구
+assets/                    지원 사이트 원본 자산
+publisher/                 대표 페이지 템플릿·app-ads.txt·robots.txt 원본
+build.py                   두 배포 대상 생성
+ docs/                     기존 GitHub Pages 배포 결과
+ dist/                     기존 Sites 배포 결과
+.openai/hosting.json        기존 Sites 프로젝트 연결 (유지)
+```
+
+`python3 build.py --output docs`로 두 결과를 함께 생성한다. `docs/`와 `dist/`를 직접 수정하지 않는다. 대표 페이지의 지원 주소·운영자·이메일은 `site.json`에서 주입한다. `--preview`는 기존처럼 `_site/`만 만들며 배포용 `dist/`를 덮어쓰지 않는다.
+
+배포 주소는 그대로 유지한다.
+
+- 지원·개인정보: `https://seokba.github.io/wical-site/` → GitHub Pages의 `main:/docs`.
+- 대표 페이지: `https://wical-support.hjkim2714.chatgpt.site/` → 동일 Sites 프로젝트의 `dist/`.
+- 광고 인증: 대표 페이지 호스트의 `/app-ads.txt`.
+
+GitHub 원격 `origin`은 유지했다. Sites 게시 시에도 이 저장소 루트의 기존 `.openai/hosting.json`을 사용하고, 새 Sites 프로젝트를 생성하지 않는다. 배포할 정확한 커밋을 Sites 소스 저장소에 전송한 뒤 `dist/`를 패키징하여 기존 프로젝트에 게시한다. GitHub push와 Sites 게시가 서로를 자동 실행하지는 않는다.
+
+이번 작업은 로컬 소스 통합이다. 생성 결과의 모든 파일이 통합 전과 바이트 단위로 같음을 확인했으므로 기존 게시 버전을 유지했다. 원격 push, 재배포, 앱·App Store URL 변경은 수행하지 않았다.
+
+원래 publisher 저장소와 파일은 `/Users/tuna/orca/backups/wical-site-consolidation-20260910/`에 보관한다. 이력은 이 저장소의 merge 커밋에도 남아 있다.

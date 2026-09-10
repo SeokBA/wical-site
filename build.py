@@ -112,3 +112,19 @@ write('robots.txt', 'User-agent: *\n' + ('Disallow: /\n' if args.preview else f'
 paths = [''] + [f'{locale}/{kind}' for locale in copy for kind in ('','support/','privacy/')]
 write('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join(f'<url><loc>{base}/{path}</loc></url>' for path in paths) + '</urlset>')
 print(f'{len(paths)}개 페이지 생성 완료: {out} (preview={args.preview})')
+
+# The same source repository also owns the existing Sites publisher deployment.
+# A local draft must never overwrite its public build output.
+if not args.preview:
+    publisher_out = ROOT / 'dist'
+    if publisher_out.exists():
+        shutil.rmtree(publisher_out)
+    shutil.copytree(ROOT / 'publisher', publisher_out)
+    publisher_home = (publisher_out / 'index.html').read_text(encoding='utf-8')
+    for token, value in {'support_base_url': escape(base, quote=True),
+                         'operator': operator, 'email': email}.items():
+        publisher_home = publisher_home.replace('{{' + token + '}}', value)
+    if '{{' in publisher_home:
+        raise SystemExit('대표 페이지에 치환되지 않은 항목이 있습니다.')
+    (publisher_out / 'index.html').write_text(publisher_home, encoding='utf-8')
+    print(f'대표 페이지·광고 인증 파일 생성 완료: {publisher_out}')
